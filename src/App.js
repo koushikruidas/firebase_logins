@@ -1,10 +1,17 @@
 import React from 'react';
+import Signup from './component/Signup';
+import "bootstrap/dist/css/bootstrap.css"
+import { Container } from 'react-bootstrap';
 
 function App() {
   return (
-    <div className="App">
-      <h1>First React App</h1>
+    <Container className="d-flex align-items-center justify-content-center"
+      style={{minHeight: '100vh'}}
+      >
+    <div className='w-100' style={{maxWidth: '400px'}}>
+      <Signup />
     </div>
+    </Container>
   );
 }
 

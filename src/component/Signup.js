@@ -1,16 +1,49 @@
-import React, {useRef} from 'react';
-import {Card, Button, Form} from 'react-bootstrap';
+import React, {useRef, useState} from 'react';
+import {Card, Button, Form, Alert} from 'react-bootstrap';
+import {useAuth} from '../context/AuthContext';
 
 export default function Signup(){
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
+    const {signUp, currentUser} = useAuth();
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    
+
+    async  function handleSubmit(e) {
+        e.preventDefault();
+
+        if(passwordRef.current.value !== passwordConfirmRef.current.value){
+            return setError("Password do not match!")
+        }
+
+        // signUp(emailRef.current.value, passwordRef.current.value).
+        //     then(userCredential => {
+        //         console.log(userCredential.value);
+        //     }).
+        //     catch(error => {
+        //         setError(error.message);
+        //     })
+        try {
+            setError("")
+            setIsLoading(true)
+            await signUp(emailRef.current.value, passwordRef.current.value)
+            // history.push("/")
+          } catch {
+            setError("Failed to create an account")
+          }
+      
+          setIsLoading(false)
+    }
 
     return(
     <div>
         <Card>
             <Card.Body>
                 <h2 className="text-center mb-4">Sign Up</h2>
+                {error && <Alert variant='danger'>{error}</Alert>}
+                {currentUser && currentUser.email}
                 <Form>
                     <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
@@ -24,7 +57,7 @@ export default function Signup(){
                         <Form.Label>Password Confirmation</Form.Label>
                         <Form.Control type='password' ref={passwordConfirmRef} required />
                     </Form.Group>
-                    <Button className="w-100" type='submit'>Sing Up</Button>
+                    <Button className="w-100" type='submit' onClick={handleSubmit} disabled={isLoading}>Sing Up</Button>
                 </Form>
             </Card.Body>
         </Card>

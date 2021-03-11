@@ -49,6 +49,9 @@ export default function SignIn() {
                 </Card.Body>
             </Card>
             <div className="w-100 text-center mt-2">
+                Forgot Password? <Link to="/password-reset">Reset Password</Link>
+            </div>
+            <div className="w-100 text-center mt-2">
                 Do not have any Account? <Link to="/signUp">Sign Up</Link>
             </div>
         </div>

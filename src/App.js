@@ -11,6 +11,7 @@ import {
 } from 'react-router-dom';
 import SignIn from './component/SignIn';
 import PrivateRoute from './component/PrivateRoute';
+import PasswordReset from './component/PasswordReset';
 
 function App() {
   return (
@@ -22,8 +23,9 @@ function App() {
           <AuthProvider>
             <Switch>
               <PrivateRoute exact path="/" component={DashBoard} />
-              <Route path="/logIn" component={SignIn} />
+              <Route path="/login" component={SignIn} />
               <Route path="/Signup" component={Signup} />
+              <Route path="/password-reset" component={PasswordReset} />
             </Switch>
           </AuthProvider>
         </Router>
